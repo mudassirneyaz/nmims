@@ -151,38 +151,51 @@ require_once('header.php') ;
 <div class="container-fluid container-academics back">
 <h1 class="back pull-center"><u class="underline">NEWS & EVENTS</u></h1>
   <div class="row row-academics ">
-  
 
-<div class="col-md-4 col-sm-6 academics bgchange">
+
+     <?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "nmim";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+$sql = 'SELECT * FROM (
+  SELECT * FROM events ORDER BY id DESC LIMIT 3
+) as r ORDER BY id';
+if (mysqli_query($conn, $sql)) {
+echo "";
+} else {
+echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+$count=1;
+$result = mysqli_query($conn, $sql);
+if (mysqli_num_rows($result) > 0) {
+// output data of each row
+
+while($row = mysqli_fetch_assoc($result)) { ?>
+
+<div class="col-md-4 col-sm-6 academics bgchange" >
   <div class="thumbnail">
-          <img src="img/event-4.jpg" alt="Fjords" style="width:100%">
-          <div class="caption">
-            <h1 class="event-caption">Event zero</h1>
-            <p>Lorem ipsum donec id elit non mi porta gravida at eget metus.</p>
+          <img src=" root/event_images/<?php echo $row['event_img'] ; ?>" alt="" style="width:100%;height: 350px;">
+          <div class="caption" style="background-color: #A0A0A0; padding: 20px;">
+            <h1 class="event-caption"><?php echo $row['eventname'] ; ?></h1>
+            <p ><?php echo $row['event_desc'] ; ?></p>
           </div>
       
       </div>
 </div>
-<div class="col-md-4 col-sm-6 academics bgchange">
-  <div class="thumbnail">
-          <img src="img/event-4.jpg" alt="Fjords" style="width:100%">
-          <div class="caption">
-            <h1 class="event-caption">Event one</h1>
-            <p>Lorem ipsum donec id elit non mi porta gravida at eget metus.</p>
-          </div>
-        
-      </div>
-</div>
-<div class="col-md-4 col-sm-6 academics bgchange">
-  <div class="thumbnail">
-        
-          <img src="img/event-4.jpg" alt="Fjords" style="width:100%">
-          <div class="caption">
-            <h1 class="event-caption">Event two</h1>
-            <p>Lorem ipsum donec id elit non mi porta gravida at eget metus.</p>
-          </div>
-      </div>
-</div>
+
+<?php
+$count++;
+}
+} else {
+echo 'No Events for now';
+}
+?>
+
   </div>
 </div>
 <hr>
@@ -193,36 +206,49 @@ require_once('header.php') ;
 <h1 class="back pull-center"><u class="underline">Latest updates</u></h1>
   <div class="row row-academics ">
   
+       <?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "nmim";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+$sql = 'SELECT * FROM (
+  SELECT * FROM updates ORDER BY id DESC LIMIT 3
+) as r ORDER BY id';
+if (mysqli_query($conn, $sql)) {
+echo "";
+} else {
+echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+$count=1;
+$result = mysqli_query($conn, $sql);
+if (mysqli_num_rows($result) > 0) {
+// output data of each row
+
+while($row = mysqli_fetch_assoc($result)) { ?>
+
 
 <div class="col-lg-4 col-sm-6 academics border-hover">
   <div class="card">
-  <img src="img/event-4.jpg" alt="" style="width:100%">
-  <h1 class="event-caption">subject</h1>
-  <p class="text-muted">Description</p>
+  <img src=" root/update_images/<?php echo $row['update_img'] ; ?>" alt="" style="width:100%;height:350px;">
+  <h1 class="event-caption"><?php echo $row['update_sub'] ; ?></h1>
+  <p class="text-muted"><?php echo $row['update_desc'] ; ?></p>
   <p>
     <a class="btn btn-primary btn-sm" href="#about"> Read More<span style="margin:10px;"><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></p>
 </div>
 </div>
 
-<div class="col-lg-4 col-sm-6 academics border-hover">
-  <div class="card">
-  <img src="img/event-4.jpg" alt="Denim Jeans" style="width:100%">
-  <h1 class="event-caption">subject</h1>
-  <p class="text-muted">Description</p>
-  <p>
-    <a class="btn btn-primary btn-sm" href="#about"> Read More<span style="margin:10px;"><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></p>
-</div>
-</div>
+<?php
+$count++;
+}
+} else {
+echo 'No Updates for now';
+}
+?>
 
-<div class="col-lg-4 col-sm-6 academics border-hover" >
-  <div class="card">
-  <img src="img/event-4.jpg" alt="Denim Jeans" style="width:100%">
-  <h1 class="event-caption">subject</h1>
-  <p class="text-muted">Description</p>
-  <p>
-    <a class="btn btn-primary btn-sm" href="#about"> Read More<span style="margin:10px;"><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></p>
-</div>
-</div>
   </div>
 </div>
 
